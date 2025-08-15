@@ -165,7 +165,7 @@ void vPortSetupTimerInterrupt( void );
  */
 void xPortPendSVHandler( void ) __attribute__( ( naked ) ) PRIVILEGED_FUNCTION;
 void xPortSysTickHandler( void )  __attribute__( ( optimize( "3" ) ) ) PRIVILEGED_FUNCTION;
-void vPortSVCHandler( void ) __attribute__( ( naked ) ) PRIVILEGED_FUNCTION;
+void vPortSVCHandler( void ) __attribute__( ( naked, used ) ) PRIVILEGED_FUNCTION;
 
 /*
  * Starts the scheduler by restoring the context of the first task to run.
@@ -176,7 +176,7 @@ static void prvRestoreContextOfFirstTask( void ) __attribute__( ( naked ) ) PRIV
  * C portion of the SVC handler.  The SVC handler is split between an asm entry
  * and a C wrapper for simplicity of coding and maintenance.
  */
-void vSVCHandler_C( uint32_t * pulRegisters ) __attribute__( ( noinline ) ) PRIVILEGED_FUNCTION;
+void vSVCHandler_C( uint32_t * pulRegisters ) __attribute__( ( noinline, used ) ) PRIVILEGED_FUNCTION;
 
 /**
  * @brief Checks whether or not the processor is privileged.
@@ -228,7 +228,7 @@ void vPortSwitchToUserMode( void );
  * @param ucSystemCallNumber The system call number of the system call.
  */
     void vSystemCallEnter( uint32_t * pulTaskStack,
-                           uint8_t ucSystemCallNumber ) PRIVILEGED_FUNCTION;
+                           uint8_t ucSystemCallNumber ) __attribute__( ( used ) )  PRIVILEGED_FUNCTION;
 
 #endif /* #if ( configUSE_MPU_WRAPPERS_V1 == 0 ) */
 
@@ -249,7 +249,7 @@ void vPortSwitchToUserMode( void );
  *
  * @param pulSystemCallStack The current SP when the SVC was raised.
  */
-    void vSystemCallExit( uint32_t * pulSystemCallStack ) PRIVILEGED_FUNCTION;
+    void vSystemCallExit( uint32_t * pulSystemCallStack ) __attribute__( ( used ) ) PRIVILEGED_FUNCTION;
 
 #endif /* #if ( configUSE_MPU_WRAPPERS_V1 == 0 ) */
 
